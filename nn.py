@@ -134,6 +134,7 @@ class NeuralNetwork(object):
         of neuron at layer l
 
         '''
+        print(input)
         a = input
         pre_activations = []
         activations = [a]
@@ -286,13 +287,11 @@ class NeuralNetwork(object):
             else:
                 n_batches = int(x_train.shape[1] / batch_size) - 1
 
-            x_train, y_train = shuffle(x_train.T, y_train.T)
+            x_train, y_train = (x_train.T, y_train.T)
             x_train, y_train = x_train.T, y_train.T
 
-            batches_x = [x_train[:, batch_size*i:batch_size *
-                                 (i+1)] for i in range(0, n_batches)]
-            batches_y = [y_train[:, batch_size*i:batch_size *
-                                 (i+1)] for i in range(0, n_batches)]
+            batches_x = x_train
+            batches_y = y_train
 
             train_losses = []
             train_accuracies = []
@@ -340,34 +339,7 @@ class NeuralNetwork(object):
             history_test_losses.append(np.mean(test_losses))
             history_test_accuracies.append(np.mean(test_accuracies))
 
-            if not plot_every:
-                if e % print_every == 0:
-                    print('Epoch {} / {} | train loss: {} | train accuracy: {} | val loss : {} | val accuracy : {} '.format(
-                        e, epochs, np.round(np.mean(train_losses), 3), np.round(
-                            np.mean(train_accuracies), 3),
-                        np.round(np.mean(test_losses), 3),  np.round(np.mean(test_accuracies), 3)))
-            else:
-                if e % plot_every == 0:
-                    self.plot_decision_regions(x_train, y_train, e,
-                                               np.round(
-                                                   np.mean(train_losses), 4),
-                                               np.round(
-                                                   np.mean(test_losses), 4),
-                                               np.round(
-                                                   np.mean(train_accuracies), 4),
-                                               np.round(
-                                                   np.mean(test_accuracies), 4),
-                                               )
-                    plt.show()
-                    display.display(plt.gcf())
-                    display.clear_output(wait=True)
-
-        self.plot_decision_regions(X, y, e,
-                                   np.round(np.mean(train_losses), 4),
-                                   np.round(np.mean(test_losses), 4),
-                                   np.round(np.mean(train_accuracies), 4),
-                                   np.round(np.mean(test_accuracies), 4),
-                                   )
+            print(history_test_losses)
 
         history = {'epochs': epochs,
                    'train_loss': history_train_losses,

@@ -88,15 +88,18 @@ x_test = data_vectorizer(
     [t, h, a, l, t_noisy_test, h_noisy_test, a_noisy_test, l_noisy_test])
 y_desired_test = [e1, e2, e3, e4, e1, e2, e3, e4]
 
-for i in range(len(x_input)):
+""" for i in range(len(x_input)):
     print(x_input[i])
-    print(x_input[i].shape)
+    print(x_input[i].shape) """
+
 # Veriler tekrar kullanılmak için kaydedildi
 np.save("x_egitim", x_input)
 np.save("yd_egitim", y_desired)
 np.save("x_test", x_test)
 np.save("yd_test", y_desired_test)
 
+print(x_input)
+print(len(x_input))
 """ for i in x_input:
     plt.imshow(i, cmap='gray')
     plt.show()
